@@ -8,17 +8,22 @@ export default function Hero() {
         <div className="absolute -bottom-24 -right-24 h-72 w-72 rounded-full bg-fuchsia-400/20 blur-3xl" />
       </div>
       <div className="container-max py-24 md:py-32 text-center">
-        <p className="inline-block rounded-full border px-3 py-1 text-xs uppercase tracking-wider text-gray-500 dark:text-gray-400">Guns.lol inspired • Built for speed</p>
+        <p className="inline-block rounded-full border px-3 py-1 text-xs uppercase tracking-wider text-gray-500 dark:text-gray-400">Link hub • Fast • Flexible</p>
         <h1 className="mt-6 text-5xl md:text-6xl font-extrabold leading-tight">
-          One link for everything you are
+          Everything you share, in one place
         </h1>
         <p className="mt-4 text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-          Create a beautiful, customizable profile with your links, analytics, and a short URL. Share it anywhere.
+          Build a modern, customizable profile with all your links. Claim your name and share it everywhere.
         </p>
-        <div className="mt-8 flex items-center justify-center gap-3">
-          <Link href="/login" className="px-5 py-3 rounded-lg bg-brand text-white hover:bg-brand-dark transition shadow">Get started</Link>
-          <a href="#features" className="px-5 py-3 rounded-lg border hover:bg-gray-50 dark:hover:bg-neutral-900 transition">Explore features</a>
-        </div>
+
+        {/* Username claim row */}
+        <form action="/login" className="mx-auto mt-8 flex w-full max-w-lg items-center gap-2">
+          <div className="flex-1 rounded-full border bg-white/70 dark:bg-white/5 backdrop-blur px-4 py-2 text-left">
+            <span className="text-gray-500">linkhub.to/</span>
+            <input aria-label="username" placeholder="username" className="bg-transparent outline-none w-40" />
+          </div>
+          <button className="rounded-full bg-brand px-5 py-2 text-white hover:bg-brand-dark transition">Claim Now</button>
+        </form>
 
         <div className="mt-12 md:mt-16">
           <PreviewCard />
