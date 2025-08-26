@@ -1,0 +1,11 @@
+.next
+node_modules
+.env*
+!.env.example
+prisma/dev.db*
+*.log
+.vercel
+node_modules
+# Build output
+.next
+next-env.d.ts
