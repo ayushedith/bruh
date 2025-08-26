@@ -10,9 +10,10 @@ export default async function PublicProfile({ params }: { params: { username: st
   await prisma.user.update({ where: { id: user.id }, data: { visitCount: { increment: 1 } } })
 
   const themeCls = user.theme === 'dark' ? 'bg-neutral-900 text-white' : user.theme?.startsWith('gradient') ? 'bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 text-white' : 'bg-white'
+  const fontCls = user.font === 'mono' ? 'font-mono' : 'font-sans'
 
   return (
-    <main className={`min-h-screen flex items-center justify-center p-6 ${themeCls}`}>
+  <main className={`min-h-screen flex items-center justify-center p-6 ${themeCls} ${fontCls}`}>
       <div className="w-full max-w-md text-center space-y-6">
         {user.image && <img src={user.image} alt="avatar" className="w-24 h-24 rounded-full mx-auto object-cover" />}
         <div>

@@ -1,7 +1,7 @@
 import NextAuth, { type NextAuthOptions, DefaultSession } from 'next-auth'
 import GoogleProvider from 'next-auth/providers/google'
 import DiscordProvider from 'next-auth/providers/discord'
-import { PrismaAdapter } from '@next-auth/prisma-adapter'
+import { PrismaAdapter } from '@auth/prisma-adapter'
 import { prisma } from '@/lib/prisma'
 
 declare module 'next-auth' {
@@ -22,16 +22,25 @@ export const authOptions: NextAuthOptions = {
       clientSecret: process.env.DISCORD_CLIENT_SECRET!,
     }),
   ],
-  session: { strategy: 'database' },
+  session: { strategy: 'jwt' },
   callbacks: {
-    async session({ session, user }) {
+    async jwt({ token, user }) {
+      if (user) {
+        token.id = (user as any).id
+        // @ts-ignore custom field
+        token.username = (user as any).username
+      }
+      return token
+    },
+    async session({ session, token }) {
       if (session.user) {
-        session.user.id = user.id
-        // @ts-expect-error added on model
-        session.user.username = (user as any).username
+        // @ts-ignore augment
+        session.user.id = token.id as string
+        // @ts-ignore augment
+        session.user.username = (token as any).username as string | undefined
       }
       return session
-    },
+    }
   },
   events: {
     async createUser({ user }) {
