@@ -1,16 +1,23 @@
-import Link from 'next/link'
+import Hero from '@/components/landing/Hero'
+import Features from '@/components/landing/Features'
+import Showcase from '@/components/landing/Showcase'
+import Stats from '@/components/landing/Stats'
+import Pricing from '@/components/landing/Pricing'
+import FAQ from '@/components/landing/FAQ'
+import CTA from '@/components/landing/CTA'
+import Footer from '@/components/landing/Footer'
 
 export default function HomePage() {
   return (
-    <main className="container-max py-16">
-      <section className="text-center space-y-6">
-        <h1 className="text-4xl font-bold">Link Hub</h1>
-        <p className="text-gray-500 dark:text-gray-400">A clean, customizable profile with all your links in one place.</p>
-        <div className="flex justify-center gap-3">
-          <Link href="/login" className="px-4 py-2 rounded-md bg-brand text-white hover:bg-brand-dark">Get Started</Link>
-          <a href="https://vercel.com" target="_blank" className="px-4 py-2 rounded-md border">Deploy</a>
-        </div>
-      </section>
+    <main>
+      <Hero />
+      <Features />
+  <Stats />
+      <Showcase />
+  <Pricing />
+  <FAQ />
+      <CTA />
+  <Footer />
     </main>
   )
 }

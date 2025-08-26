@@ -1,7 +1,7 @@
-import NextAuth, { type NextAuthOptions, DefaultSession } from 'next-auth'
+import { type NextAuthOptions, DefaultSession, getServerSession } from 'next-auth'
 import GoogleProvider from 'next-auth/providers/google'
 import DiscordProvider from 'next-auth/providers/discord'
-import { PrismaAdapter } from '@auth/prisma-adapter'
+import { PrismaAdapter } from '@next-auth/prisma-adapter'
 import { prisma } from '@/lib/prisma'
 
 declare module 'next-auth' {
@@ -22,25 +22,17 @@ export const authOptions: NextAuthOptions = {
       clientSecret: process.env.DISCORD_CLIENT_SECRET!,
     }),
   ],
-  session: { strategy: 'jwt' },
+  session: { strategy: 'database' },
   callbacks: {
-    async jwt({ token, user }) {
-      if (user) {
-        token.id = (user as any).id
-        // @ts-ignore custom field
-        token.username = (user as any).username
-      }
-      return token
-    },
-    async session({ session, token }) {
-      if (session.user) {
+    async session({ session, user }) {
+      if (session.user && user) {
         // @ts-ignore augment
-        session.user.id = token.id as string
+        session.user.id = user.id
         // @ts-ignore augment
-        session.user.username = (token as any).username as string | undefined
+        session.user.username = (user as any).username
       }
       return session
-    }
+    },
   },
   events: {
     async createUser({ user }) {
@@ -63,4 +55,6 @@ export const authOptions: NextAuthOptions = {
   }
 }
 
-export const { auth, handlers, signIn, signOut } = NextAuth(authOptions)
+export async function auth() {
+  return getServerSession(authOptions)
+}
