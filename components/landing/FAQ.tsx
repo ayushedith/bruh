@@ -32,7 +32,7 @@ export default function FAQ() {
   return (
     <section className="container-max py-16" id="faq">
       <div className="text-center mb-10">
-        <h2 className="text-3xl md:text-4xl font-bold">Frequently asked questions</h2>
+  <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-gray-100">Frequently asked questions</h2>
         <p className="text-gray-600 dark:text-gray-400">Everything you need to know.</p>
       </div>
       <div className="space-y-3 max-w-3xl mx-auto">
