@@ -72,6 +72,64 @@ export default function DashboardClient({ sessionUser }: { sessionUser: SessionU
       }
     >
       <div className="space-y-6">
+        {/* Theme presets */}
+        <section id="theme-presets">
+          <h2 className="text-3xl font-extrabold tracking-tight text-gray-900 dark:text-gray-100">Make it feel like you</h2>
+          <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">Pick a vibe, then tweak buttons, colors, and fonts.</p>
+          <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {/* Light */}
+            <button
+              type="button"
+              onClick={() => setForm({ ...form, theme: 'light' })}
+              className={`text-left rounded-3xl border p-6 shadow-sm transition focus:outline-none ${form.theme === 'light' ? 'ring-2 ring-indigo-500' : 'hover:shadow'} bg-white`}
+            >
+              <div className="mx-auto max-w-[280px] rounded-3xl border border-gray-200 p-6 text-center text-gray-900 bg-white">
+                <div className="mx-auto mb-4 h-20 w-20 rounded-full bg-gray-200" />
+                <div className="text-lg font-semibold">@lightuser</div>
+                <div className="text-sm text-gray-500">Clean and minimal.</div>
+                <div className="mt-4 space-y-3">
+                  <div className="h-11 rounded-xl bg-gray-200 grid place-items-center text-gray-700">Link One</div>
+                  <div className="h-11 rounded-xl bg-gray-200 grid place-items-center text-gray-700">Link Two</div>
+                </div>
+              </div>
+            </button>
+
+            {/* Dark */}
+            <button
+              type="button"
+              onClick={() => setForm({ ...form, theme: 'dark' })}
+              className={`text-left rounded-3xl border p-6 shadow-sm transition focus:outline-none ${form.theme === 'dark' ? 'ring-2 ring-indigo-500' : 'hover:shadow'} bg-white`}
+            >
+              <div className="mx-auto max-w-[280px] rounded-3xl p-6 text-center text-white bg-neutral-900">
+                <div className="mx-auto mb-4 h-20 w-20 rounded-full bg-neutral-700" />
+                <div className="text-lg font-semibold">@nightowl</div>
+                <div className="text-sm text-neutral-300">Moody and modern.</div>
+                <div className="mt-4 space-y-3">
+                  <div className="h-11 rounded-xl border border-white/60 grid place-items-center">Link One</div>
+                  <div className="h-11 rounded-xl border border-white/60 grid place-items-center">Link Two</div>
+                </div>
+              </div>
+            </button>
+
+            {/* Gradient */}
+            <button
+              type="button"
+              onClick={() => setForm({ ...form, theme: 'gradient-1' })}
+              className={`text-left rounded-3xl border p-6 shadow-sm transition focus:outline-none ${form.theme?.startsWith('gradient') ? 'ring-2 ring-indigo-500' : 'hover:shadow'} bg-white`}
+            >
+              <div className="mx-auto max-w-[280px] rounded-3xl p-6 text-center text-white bg-gradient-to-br from-indigo-500 via-fuchsia-500 to-pink-500">
+                <div className="mx-auto mb-4 h-20 w-20 rounded-full bg-white/20" />
+                <div className="text-lg font-semibold">@vibes</div>
+                <div className="text-sm text-white/90">Loud and proud.</div>
+                <div className="mt-4 space-y-3">
+                  <div className="h-11 rounded-xl border border-white/80 grid place-items-center">Link One</div>
+                  <div className="h-11 rounded-xl border border-white/80 grid place-items-center">Link Two</div>
+                </div>
+              </div>
+            </button>
+          </div>
+        </section>
+
         <section id="profile">
           <h2 className="text-xl font-semibold">Profile</h2>
           <div className="mt-3 grid gap-3">
