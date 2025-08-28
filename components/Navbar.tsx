@@ -29,7 +29,7 @@ export default async function Navbar() {
             {['Features', 'Pricing', 'Showcase'].map((label) => (
               <li key={label}>
         <a href={`#${label.toLowerCase()}`}
-       className="group relative py-2 text-gray-900 dark:text-gray-200 hover:text-gray-900 dark:hover:text-white transition-colors">
+       className="group relative py-2 text-gray-900 dark:text-gray-600 hover:text-gray-900 dark:hover:text-white transition-colors">
                   {label}
       <span className="pointer-events-none absolute left-0 right-0 -bottom-0.5 mx-auto h-0.5 w-0 rounded-full bg-gradient-to-r from-indigo-500 via-fuchsia-500 to-pink-500 transition-all duration-300 group-hover:w-full" />
                 </a>
