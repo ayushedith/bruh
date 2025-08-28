@@ -12,24 +12,63 @@ declare module 'next-auth' {
 
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
+  debug: process.env.NEXTAUTH_DEBUG === 'true',
+  trustHost: true,
+  cookies: {
+    sessionToken: {
+      name: `next-auth.session-token`,
+      options: {
+        httpOnly: true,
+        sameSite: 'lax',
+        path: '/',
+        secure: false, // localhost
+      },
+    },
+  },
   providers: [
-    GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID!,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
-    }),
+    ...(process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET
+      ? [GoogleProvider({
+          clientId: process.env.GOOGLE_CLIENT_ID,
+          clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+        })]
+      : []),
     DiscordProvider({
       clientId: process.env.DISCORD_CLIENT_ID!,
       clientSecret: process.env.DISCORD_CLIENT_SECRET!,
+      authorization: {
+        params: { scope: 'identify email' }
+      },
     }),
   ],
-  session: { strategy: 'database' },
+  session: { strategy: 'jwt' },
   callbacks: {
-    async session({ session, user }) {
-      if (session.user && user) {
+    async jwt({ token, user, account, profile }) {
+      // On initial sign in, attach id and username
+      if (user) {
+        // @ts-ignore custom
+        token.id = user.id
+        // @ts-ignore custom
+        token.username = (user as any).username ?? token.username
+      }
+      return token
+    },
+    async redirect({ url, baseUrl }) {
+      try {
+        // Allow relative callback URLs
+        if (url.startsWith('/')) return `${baseUrl}${url}`
+        const to = new URL(url)
+        // Same-origin URLs are allowed
+        if (to.origin === baseUrl) return url
+      } catch {}
+      // Fallback after sign-in
+      return `${baseUrl}/dashboard`
+    },
+    async session({ session, token }) {
+      if (session.user && token) {
         // @ts-ignore augment
-        session.user.id = user.id
+        session.user.id = (token as any).id as string
         // @ts-ignore augment
-        session.user.username = (user as any).username
+        session.user.username = (token as any).username as string | undefined
       }
       return session
     },
@@ -52,6 +91,17 @@ export const authOptions: NextAuthOptions = {
   },
   pages: {
     signIn: '/login'
+  },
+  logger: {
+    error(code, ...message) {
+      console.error('NextAuth error:', code, ...message)
+    },
+    warn(code, ...message) {
+      console.warn('NextAuth warn:', code, ...message)
+    },
+    debug(code, ...message) {
+      console.debug('NextAuth debug:', code, ...message)
+    },
   }
 }
 
