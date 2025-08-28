@@ -50,7 +50,7 @@ export default function Showcase() {
   return (
     <section className="container-max py-16 md:py-24">
       <div className="text-center mb-10">
-        <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-gray-100">Make it feel like you</h2>
+        <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-gray-600">Make it feel like you</h2>
         <p className="text-gray-600 dark:text-gray-400 mt-2">Pick a vibe, then tweak buttons, colors, and fonts.</p>
       </div>
       <div className="grid md:grid-cols-3 gap-6">
