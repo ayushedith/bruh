@@ -16,7 +16,7 @@ export const authOptions: NextAuthOptions = {
   trustHost: true,
   cookies: {
     sessionToken: {
-      name: `next-auth.session-token`,
+  name: `next-auth.jwt`,
       options: {
         httpOnly: true,
         sameSite: 'lax',
@@ -42,6 +42,18 @@ export const authOptions: NextAuthOptions = {
   ],
   session: { strategy: 'jwt' },
   callbacks: {
+    async signIn({ user, account, profile, email, credentials }) {
+      try {
+        console.debug('NextAuth signIn callback:', {
+          provider: account?.provider,
+          type: account?.type,
+          hasAccessToken: Boolean((account as any)?.access_token),
+          hasIdToken: Boolean((account as any)?.id_token),
+          hasEmail: Boolean((user as any)?.email || (profile as any)?.email),
+        })
+      } catch {}
+      return true
+    },
     async jwt({ token, user, account, profile }) {
       // On initial sign in, attach id and username
       if (user) {
@@ -74,6 +86,9 @@ export const authOptions: NextAuthOptions = {
     },
   },
   events: {
+    async error(message) {
+      console.error('NextAuth events.error:', message)
+    },
     async createUser({ user }) {
       if (!(user as any).username) {
         const base = (user.name || user.email?.split('@')[0] || 'user').toLowerCase().replace(/[^a-z0-9]+/g, '')
