@@ -2,12 +2,12 @@ export default function Pricing() {
   return (
     <section className="container-max py-16" id="pricing">
       <div className="text-center mb-10">
-    <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-gray-100">Explore our plans</h2>
+    <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-gray-600">Explore our plans</h2>
         <p className="text-gray-600 dark:text-gray-400">Join thousands of creators leveling up their profile.</p>
       </div>
       <div className="grid md:grid-cols-2 gap-6">
         {/* Free */}
-    <div className="rounded-2xl border bg-white/60 dark:bg-white/5 backdrop-blur p-6 flex flex-col text-gray-900 dark:text-gray-100">
+    <div className="rounded-2xl border bg-white/60 dark:bg-white/5 backdrop-blur p-6 flex flex-col text-gray-900 dark:text-gray-600">
           <div className="flex items-center justify-between">
             <h3 className="text-xl font-semibold">Free</h3>
           </div>
@@ -22,7 +22,7 @@ export default function Pricing() {
           </div>
         </div>
         {/* Premium */}
-  <div className="rounded-2xl border bg-gradient-to-br from-indigo-500/15 to-fuchsia-500/15 p-6 flex flex-col text-gray-900 dark:text-gray-100">
+  <div className="rounded-2xl border bg-gradient-to-br from-indigo-500/15 to-fuchsia-500/15 p-6 flex flex-col text-gray-900 dark:text-gray-600">
           <div className="flex items-center justify-between">
       <h3 className="text-xl font-semibold flex items-center gap-2">Premium <span className="text-xs rounded-full border px-2 py-0.5 border-gray-300 text-gray-700 dark:border-white/40 dark:text-white/90">Most Popular</span></h3>
           </div>

@@ -74,7 +74,7 @@ export default function DashboardClient({ sessionUser }: { sessionUser: SessionU
       <div className="space-y-6">
         {/* Theme presets */}
         <section id="theme-presets">
-          <h2 className="text-3xl font-extrabold tracking-tight text-gray-900 dark:text-gray-100">Make it feel like you</h2>
+          <h2 className="text-3xl font-extrabold tracking-tight text-gray-900 dark:text-gray-600">Make it feel like you</h2>
           <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">Pick a vibe, then tweak buttons, colors, and fonts.</p>
           <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {/* Light */}
