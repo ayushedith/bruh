@@ -13,7 +13,6 @@ declare module 'next-auth' {
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
   debug: process.env.NEXTAUTH_DEBUG === 'true',
-  trustHost: true,
   cookies: {
     sessionToken: {
   name: `next-auth.jwt`,
@@ -86,9 +85,6 @@ export const authOptions: NextAuthOptions = {
     },
   },
   events: {
-    async error(message) {
-      console.error('NextAuth events.error:', message)
-    },
     async createUser({ user }) {
       if (!(user as any).username) {
         const base = (user.name || user.email?.split('@')[0] || 'user').toLowerCase().replace(/[^a-z0-9]+/g, '')
